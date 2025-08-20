@@ -1,0 +1,7 @@
+{
+  "runtime": "rust",
+  "handler": "lib.process_message",
+  "build_command": "cargo build --release",
+  "timeout_seconds": 300,
+  "description": "Claude-powered file operations agent with comprehensive file management capabilities"
+}
