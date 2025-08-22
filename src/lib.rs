@@ -1,5 +1,6 @@
 use anyhow::Result;
 use reqwest::Client;
+use serde_json::Value;
 use std::env;
 
 pub mod agent;
@@ -59,24 +60,30 @@ impl ClaudeConfig {
 use agent::Agent;
 pub use agents::orchestrator::OrchestratorAgent;
 
+/// Main handler function called by Raworc (sync wrapper)
+pub fn process_message_sync(message: &str, context: &Value) -> String {
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.block_on(process_message(message, context))
+}
+
 /// Process message handler for raworc integration
-pub async fn process_message(task: &str) -> Result<String> {
+async fn process_message(task: &str, context: &Value) -> String {
     // Clear bin directory and reset counter for new request
     if let Err(e) = utils::clear_bin_directory() {
         log::warn!("Failed to clear bin directory: {}", e);
     }
 
     // Initialize orchestrator and process task
-    let orchestrator = OrchestratorAgent::new()?;
+    let orchestrator = OrchestratorAgent::new().unwrap();
 
     match orchestrator.call(task).await {
         Ok(result) => {
             log::info!("Task completed successfully");
-            Ok(result)
+            result.to_string()
         }
         Err(e) => {
             log::error!("Task failed: {}", e);
-            Err(e)
+            e.to_string()
         }
     }
 }
