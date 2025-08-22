@@ -2,9 +2,7 @@
 name = "file-agent"
 version = "0.1.0"
 edition = "2021"
-
-[lib]
-crate-type = ["cdylib", "rlib"]
+description = "Intelligent file operations: read, write, search, analyze, manage directories"
 
 [dependencies]
 anyhow = "1.0"
