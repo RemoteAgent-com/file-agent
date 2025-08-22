@@ -21,8 +21,8 @@ pub struct ClaudeConfig {
 
 impl ClaudeConfig {
     pub fn new() -> Result<Self> {
-        let api_key = env::var("CLAUDE_API_KEY")
-            .map_err(|_| anyhow::anyhow!("CLAUDE_API_KEY environment variable not set"))?;
+        let api_key = env::var("ANTHROPIC_API_KEY")
+            .map_err(|_| anyhow::anyhow!("ANTHROPIC_API_KEY environment variable not set"))?;
         let api_url = env::var("CLAUDE_API_URL")
             .unwrap_or_else(|_| "https://api.anthropic.com/v1/messages".to_string());
         let model =
