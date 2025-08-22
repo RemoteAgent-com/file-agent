@@ -73,6 +73,8 @@ async fn process_message(task: &str, context: &Value) -> String {
         log::warn!("Failed to clear bin directory: {}", e);
     }
 
+    log::info!("Processing message: {}", task);
+
     // Initialize orchestrator and process task
     let orchestrator = OrchestratorAgent::new().unwrap();
 
