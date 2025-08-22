@@ -1,7 +1,5 @@
 {
   "runtime": "rust",
   "handler": "lib.process_message_sync",
-  "build_command": "cargo build --release",
-  "timeout_seconds": 300,
   "description": "Intelligent file operations: read, write, search, analyze, manage directories"
 }
